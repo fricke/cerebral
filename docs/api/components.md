@@ -70,10 +70,16 @@ export default connect({
   foo: state`app.foo`,
   clicked: signal`app.somethingClicked`
 }, (dependencyProps, ownProps, resolve) => {
-  const path = resolve.path(state`entities.foo.{ownProps}`) // we can resolve values or path here. Note: it's not tracked as dependency
+
+  // we can resolve values or path here. Note: it's not tracked as dependency
+  const path = resolve.path(state`entities.foo.{ownProps}`)
+
   return {
-    foo: `Label: ${foo}`,                                   // values from state could be transformed here
-    onClick: (e) => clicked({ id: ownProps.id })            // signals calls could be bound here, so component uses it as general callback
+    // values from state could be transformed here
+    foo: `Label: ${foo}`,                        
+
+    // signals calls could be bound here, so component uses it as general callback           
+    onClick: (e) => clicked({ id: ownProps.id })
   }
 },
   function App({foo, onClick}) {
@@ -245,7 +251,8 @@ you will need to provide one to `connect` for the
 component to be given a name in cerebral.
 
 You can call connect in the following ways:
-```
+
+```js
 connect(dependencies)
 connect(dependencies, name)
 connect(dependencies, controller)

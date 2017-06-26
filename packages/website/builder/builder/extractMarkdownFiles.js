@@ -1,10 +1,27 @@
 const React = require('react')
+const Prism = require('prismjs')
 const path = require('path')
-const marksy = require('marksy/components').marksy
+const marksy = require('marksy/components').default
 const { readFile, fileExistsSync } = require('./utils')
 const config = require('../config.json')
 
 const compile = marksy({
+  createElement: React.createElement,
+  highlight(language, code) {
+    return Prism.highlight(code, Prism.languages[language])
+  },
+  elements: {
+    a(props) {
+      return (
+        <a
+          href={props.href}
+          target={props.href.substr(0, 4) === 'http' ? 'new' : null}
+        >
+          {props.children}
+        </a>
+      )
+    },
+  },
   components: {
     Youtube(props) {
       return (
@@ -34,16 +51,6 @@ const compile = marksy({
         />
       )
     },
-  },
-  a(props) {
-    return (
-      <a
-        href={props.href}
-        target={props.href.substr(0, 4) === 'http' ? 'new' : null}
-      >
-        {props.children}
-      </a>
-    )
   },
 })
 
