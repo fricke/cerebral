@@ -10,11 +10,20 @@ Cerebral is based on the simple concept of three things your application does in
 ## Store state
 Where to store the state of an application is a highly debated subject. Should we allow the components to store state? Should we have multiple models? Stores? Reducers? Services? There are many concepts that can store state. In Cerebral you store all your state in "a single state tree". That means you do not create classes or other abstractions around state, it is all basically one big object of plain JavaScript types. Objects, arrays, strings, numbers and booleans:
 
-```js
+```
 {
   auth: {
     isLoggedIn: false,
-    user: {}
+    user: {
+      prefs: {
+        style: 'light'
+      },
+      friends: [],
+      info: {
+        email: '',
+        name: ''
+      }
+    }
   },
   posts: {
     list: [],
