@@ -14,7 +14,16 @@ Where to store the state of an application is a highly debated subject. Should w
 {
   auth: {
     isLoggedIn: false,
-    user: {}
+    user: {
+      prefs: {
+        style: 'light'
+      },
+      friends: [],
+      info: {
+        email: '',
+        name: ''
+      }
+    }
   },
   posts: {
     list: [],
@@ -50,7 +59,7 @@ Since Cerebral stores all the state of the application in a single state tree we
 
 ```js
 connect({
-  userName: state`app.user.name`
+  userName: state`app.user.info.name`
 },
   function User(props) {
     props.userName // "some name" (value stored in 'app.user.name')
